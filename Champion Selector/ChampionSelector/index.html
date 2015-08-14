@@ -10,14 +10,32 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <script>
+
         var championList
         $(document).ready(function () {
             var rgAPIchampionList = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=10e540af-7f4d-4cd5-af70-136b75a66fe6";
             var rgStaticSquareChampionImageBaseLink = "http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/"
             $.getJSON(rgAPIchampionList)
               .done(function (data) {
+
+                  // First create the array of keys/net_total so that we can sort it:
+                  var ChampionNames = [];
+                  for (var key in data.data) {
+                      ChampionNames.push(key);
+                  }
+
+                  // Now sort it:
+                  ChampionNames.sort();
+
+                  // Now process that object with it:
+                  for (var i = 0; i < ChampionNames.length; i++) {
+                      var item = data.data[ChampionNames[i]];
+                      $('<div id="' + item.name + '" class="champion" style="background-image:url(' + rgStaticSquareChampionImageBaseLink + item.image.full + ')">' + item.name + '</div>').appendTo("#Content");
+
+                      // now do stuff with each item
+                  }
                   $.each(data.data, function (i, data) {
-                      $('<div id="' + data.name + '" class="champion" style="background-image:url(' + rgStaticSquareChampionImageBaseLink + data.image.full + ')">' + data.name + '</div>').appendTo("#Content");
+
                   });
               });
         });
