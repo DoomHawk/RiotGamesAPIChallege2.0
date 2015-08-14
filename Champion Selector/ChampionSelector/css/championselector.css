@@ -1,0 +1,26 @@
+﻿body
+{
+    background-color:#000;
+}
+
+/*The #Content ID is for the main div on every page.
+    Everything exists inside content except the 
+    background frame of the page.
+*/
+#Content {
+    width:90%;
+    margin: 1em auto;
+    background-color:#222;
+    color:white;
+}
+
+/*The .champion class is intended to turn a div
+    into a square champion icon to fit the image.
+*/
+.champion {
+    font-size:1em;
+    width:120px;
+    height:120px;
+    margin:.2em;
+    float:left;
+}

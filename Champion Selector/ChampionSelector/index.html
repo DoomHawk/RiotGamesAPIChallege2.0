@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/championselector.css" />
+    <meta charset="utf-8" />    
+    <title>Select Your Champion</title>
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+        var championList
+        $(document).ready(function () {
+            var rgAPIchampionList = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=10e540af-7f4d-4cd5-af70-136b75a66fe6";
+            var rgStaticSquareChampionImageBaseLink = "http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/"
+            $.getJSON(rgAPIchampionList)
+              .done(function (data) {
+                  $.each(data.data, function (i, data) {
+                      $('<div id="' + data.name + '" class="champion" style="background-image:url(' + rgStaticSquareChampionImageBaseLink + data.image.full + ')">' + data.name + '</div>').appendTo("#Content");
+                  });
+              });
+        });
+    </script>
+</head>
+<body>
+    <div id="Content">
+    </div>
+</body>
+</html>
