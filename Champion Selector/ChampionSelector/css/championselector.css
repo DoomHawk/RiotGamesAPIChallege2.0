@@ -3,6 +3,12 @@
     background-color:#000;
 }
 
+body a {
+    text-decoration:none;
+    font-weight:bold;
+    color:white;
+}
+
 /*The #Content ID is for the main div on every page.
     Everything exists inside content except the 
     background frame of the page.
@@ -19,8 +25,15 @@
 */
 .champion {
     font-size:1em;
+    float:left;
+    text-align:center;
+}
+
+.champion .name {
+    display:table-cell;
+    vertical-align:middle;
     width:120px;
     height:120px;
-    margin:.2em;
-    float:left;
+    background-color:rgba(0,0,0,0.50);
+
 }
