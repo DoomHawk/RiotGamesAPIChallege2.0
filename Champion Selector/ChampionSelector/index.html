@@ -10,33 +10,57 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <script>
+        //Declare global JS vars
+        var championList;
+        var rgStaticSquareChampionImageBaseLink = "https://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/" //Create a string to hold the base url for each champion's small, square icon
 
-        var championList
+        //Global function for mousovers on champion icons
+
+        //Global function to handle the selection of a champion
+        function OpenChampbox(championid) {
+            document.getElementById('Champion').style.display = 'block';
+            document.getElementById('fade').style.display = 'block';
+            var rgAPIChampionImageByID = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + championid + "?champData=image&api_key=10e540af-7f4d-4cd5-af70-136b75a66fe6";
+            var rgStaticChampionSplashBaseLink = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
+            $("#Champion").empty();
+
+            $.getJSON(rgAPIChampionImageByID).done(function (data) {
+                $('<div ID="SelectedChampion">' + data.name + '</div>').appendTo("#Champion");
+                $('#SelectedChampion').css("background-image", "url(" + rgStaticChampionSplashBaseLink + data.name + "_0.jpg)");
+                $('#SelectedChampion').css("background-size", "cover");
+            });
+
+        };
+
+        function CloseChampbox() {
+            document.getElementById('Champion').style.display = 'none';
+            document.getElementById('fade').style.display = 'none';
+        };
+
+
         $(document).ready(function () {
-            var rgAPIchampionList = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=10e540af-7f4d-4cd5-af70-136b75a66fe6";
-            var rgStaticSquareChampionImageBaseLink = "https://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/"
-            $.getJSON(rgAPIchampionList)
-              .done(function (data) {
+            //Declare local .ready vars
+            var rgAPIchampionList = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=10e540af-7f4d-4cd5-af70-136b75a66fe6"; //Create Query URL string for API call of all champions with the addition of their image data
+            var ChampionNames = []; //Create an array to be filled with the champion names
 
-                  // First create the array of keys/net_total so that we can sort it:
-                  var ChampionNames = [];
+            //Query the API for the list of all champions
+            $.getJSON(rgAPIchampionList).done(function (data) {
+
+                  //Pull each champion key (name) and place it in the array
                   for (var key in data.data) {
                       ChampionNames.push(key);
                   }
 
-                  // Now sort it:
+                  // Now sort it alphabetically:
                   ChampionNames.sort();
 
-                  // Now process that object with it:
+                  // Now process the Champions object with it so they render in alphabetical order
                   for (var i = 0; i < ChampionNames.length; i++) {
                       var item = data.data[ChampionNames[i]];
-                      $('<a href="/champions/' + item.name + '.html"><div id="' + item.name + '" class="champion" style="background-image:url(' + rgStaticSquareChampionImageBaseLink + item.image.full + ')"><div class="name">' + item.name.toUpperCase() + '</div></div></a>').appendTo("#Content");
+                      $('<a href="javascript:void(0)" onclick="OpenChampbox(\'' + item.id + '\');"><div id="' + item.name + '" class="champion" style="background-image:url(' + rgStaticSquareChampionImageBaseLink + item.image.full + ')"><div class="name"><span>' + item.name.toUpperCase() + '</span></div></div></a>').appendTo("#Content");
 
-                      // now do stuff with each item
+  
                   }
-                  $.each(data.data, function (i, data) {
-
-                  });
               });
         });
     </script>
@@ -44,5 +68,7 @@
 <body>
     <div id="Content">
     </div>
+    
+    <div id="fade" class="black_overlay" onclick="CloseChampbox();"><div id="Champion" class="champbox">Aatrox</div></div>
 </body>
 </html>
