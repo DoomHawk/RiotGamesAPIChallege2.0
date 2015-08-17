@@ -1,0 +1,25 @@
+﻿body {
+    background-color:#000;
+}
+
+#Content {
+    width:90%;
+    margin:1em auto;
+    background-color:#222;
+    padding:1em;
+}
+
+.dropzone {
+    width:80%;
+    margin:auto;
+    border:.2em solid white;
+    border-radius:1em;
+    color:white;
+    min-height:20em;
+    text-align:center;
+}
+
+.dropzone:hover {
+    background-color:#444;
+    border:.2em dashed;
+}

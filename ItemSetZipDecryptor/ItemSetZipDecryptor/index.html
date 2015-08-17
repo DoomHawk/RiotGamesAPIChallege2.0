@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/dropzone.css" rel="stylesheet" />
+
+    <link href="css/global.css" rel="stylesheet" />
+
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script src="js/dropzone.js"></script>
+
+    <!--<script>
+        Dropzone.options.FileDropzone = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            accept: function (file, done) {
+                if (file.name != "Champions.zip") {
+                    done("Only zipped Riot Games/League of Legends/config/Champions folders are accepted at this time.");
+                }
+                else { done(); }
+            }
+        };
+    </script>-->
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div id="Content">
+
+        <form class="dropzone" action="/file-upload">
+                <input hidden="hidden" type="file" name="file" />
+        </form>
+
+    </div>
+</body>
+</html>
